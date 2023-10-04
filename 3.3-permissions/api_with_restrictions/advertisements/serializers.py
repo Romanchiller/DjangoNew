@@ -41,10 +41,10 @@ class AdvertisementSerializer(serializers.ModelSerializer):
         user = self.context['request'].user
         adv_num = Advertisement.objects.filter(creator=user, status='OPEN').count()
         if self.context['request'].method == 'POST':
-            if adv_num + 1 > 10:
+            if adv_num >= 10:
                 raise serializers.ValidationError('У вас 10 открытых объявлений')
-        if self.context['request'].method in 'PATCH' and data['status'] == 'OPEN':
-            if adv_num + 1 > 10:
+        if self.context['request'].method in 'PATCH' and data.get('status') == 'OPEN':
+            if adv_num >= 10:
                 raise serializers.ValidationError('У вас 10 открытых объявлений')
         return data
 

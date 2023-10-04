@@ -5,7 +5,6 @@ from advertisements.filters import AdvertisementFilter
 from advertisements.models import Advertisement
 from advertisements.serializers import AdvertisementSerializer
 from advertisements.permissions import IsOwnerOrReadOnly
-from rest_framework import filters
 from django_filters.rest_framework import DjangoFilterBackend
 
 
@@ -16,9 +15,7 @@ class AdvertisementViewSet(ModelViewSet):
     #   сериализаторов и фильтров
     queryset = Advertisement.objects.all()
     serializer_class = AdvertisementSerializer
-    permission_classes = [IsAuthenticated, IsOwnerOrReadOnly]
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['creator']
     filterset_class = AdvertisementFilter
 
 
